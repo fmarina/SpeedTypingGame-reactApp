@@ -84,3 +84,9 @@
     min-height: 120px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .app {
+    min-width: 270px;
+  }
+}
