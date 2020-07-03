@@ -40,7 +40,7 @@ font-family: 'Josefin Sans', sans-serif;
 .total-words {
   display: none;
   font-size: 1.8em;
-  padding: 10px 20px;
+  padding: 5px 10px;
   font-family: 'Ibarra Real Nova', serif;
   border-radius: 100%;
   border: 2px dotted #fff;
@@ -67,7 +67,7 @@ font-family: 'Josefin Sans', sans-serif;
   color: rgb(77, 123, 184);
 }
 
-.time-counter {
+.count-timer{
   padding: 20px;
   font-size: 1.4em;
 }
