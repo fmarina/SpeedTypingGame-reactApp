@@ -3,8 +3,9 @@ import './App.css';
 
 function App() {
   const [ text, setText ] = useState("");
-  const [ countTimer, setCountTimer ] = useState(2);
+  const [ countTimer, setCountTimer ] = useState(0);
   const [isTimeRunning, setIsTimeRunning] = useState(false)
+  const [ wordCount, setWorkCount ] = useState(0);
 
   const handleChange = (e) => setText(e.target.value);
 
@@ -14,14 +15,15 @@ function App() {
   };
 
   useEffect(() => {
-    (isTimeRunning && countTimer > 0)
-    ? setTimeout(() => {
+    if(isTimeRunning && countTimer > 0){
+    setTimeout(() => {
         setCountTimer(prevCount => prevCount - 1);
       }, 1000)
-    : setIsTimeRunning(false);
+    } else if (countTimer === 0) {
+      setIsTimeRunning(false);
+      setWorkCount(calculateWords(text));
+    }
   }, [countTimer, isTimeRunning]);
-
-  console.log("isRunning", isTimeRunning);
 
   return (
     <div className="app">
@@ -29,7 +31,7 @@ function App() {
 
       <textarea value={text} onChange={handleChange} />
       
-      <h1 className="total-words"></h1>
+      <h1 className="total-words">{wordCount}</h1>
       <button onClick={() => setIsTimeRunning(true)}>START</button>
       <h4 className="count-timer">Time reminaing: {countTimer}</h4>
     </div>
