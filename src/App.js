@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import './App.css';
 
 function App() {
-  const INITIAL_TIME = 5;
+  const INITIAL_TIME = 10;
 
   const [ text, setText ] = useState("");
   const [ countTimer, setCountTimer ] = useState(INITIAL_TIME);
   const [ isTimeRunning, setIsTimeRunning ] = useState(false)
   const [ wordCount, setWorkCount ] = useState(0);
+  const textareaRef = useRef(null);
 
   const calculateWords = (text) => {
     const totalWords = text.trim().split(" ").filter(word => word !== "").length;
@@ -19,7 +20,9 @@ function App() {
   const startGame = () => {
     setIsTimeRunning(true);    
     setCountTimer(INITIAL_TIME);
-    setText("");
+    setText("");      
+    textareaRef.current.disabled = false;
+    textareaRef.current.focus();
   };
 
   const resetGame = () => {
@@ -29,17 +32,18 @@ function App() {
 
   useEffect(() => {
     (isTimeRunning && countTimer > 0)
-    ? setTimeout(() => {
+    ? setTimeout(() => {        
         setCountTimer(prevCount => prevCount - 1);
       }, 1000)
-    : (countTimer === 0) && resetGame();   
-
+    : (countTimer === 0) && resetGame();
   }, [countTimer, isTimeRunning]);
+
 
   return (
     <div className="app">
       <h1 className="title">How fast do you type?</h1>
       <textarea 
+        ref={textareaRef}
         value={text} 
         onChange={handleChange} 
         disabled={!isTimeRunning}
